@@ -4,14 +4,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class PracticalTest01MainActivity extends Activity {
@@ -80,6 +84,24 @@ public class PracticalTest01MainActivity extends Activity {
 	    }
 	    return isValid;
 	}
+	
+
+	private ButtonClickListener viewClickListener = new ButtonClickListener();
+	
+	private class ButtonClickListener implements View.OnClickListener  {
+		@Override
+		public void onClick(View v) {
+			b1 = (Button) findViewById(R.id.buton1);
+			
+			if(b1.equals((Button)v)){
+
+				Intent intent = new Intent("ro.pub.cs.systems.pdsd.intent.action.PracticalTest02SecondaryActivity");
+		          intent.putExtra("telefon", c2.isChecked());
+		          intent.putExtra("email", c1.isChecked());
+		          startActivityForResult(intent, 10);
+			}
+		}
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +112,12 @@ public class PracticalTest01MainActivity extends Activity {
 		t2 = (EditText) findViewById(R.id.text2);
 		c1 = (CheckBox) findViewById(R.id.check1);
 		c2 = (CheckBox) findViewById(R.id.check2);
+		b1 = (Button) findViewById(R.id.buton1);
 		
 		t1.addTextChangedListener(textL);
 		t2.addTextChangedListener(textL);
+		b1.setOnClickListener(viewClickListener);
+		
     }
     
     @Override
@@ -116,12 +141,13 @@ public class PracticalTest01MainActivity extends Activity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
       super.onRestoreInstanceState(savedInstanceState);
-    
       
       t1 = (EditText) findViewById(R.id.text1);
       t2 = (EditText) findViewById(R.id.text2);
       c1 = (CheckBox) findViewById(R.id.check1);
       c2 = (CheckBox) findViewById(R.id.check2);
+      
+      Log.d("debug", "onRestore " + t1.getText().toString() + " " + t2.getText().toString());
 
       
       t1.setText(savedInstanceState.getString("textul1"));
@@ -150,5 +176,10 @@ public class PracticalTest01MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+      Toast.makeText(this, "The activity returned with result "+resultCode, Toast.LENGTH_LONG).show();
     }
 }
