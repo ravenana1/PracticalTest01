@@ -49,11 +49,17 @@ public class PracticalTest01MainActivity extends Activity {
 				if(isEmailValid(t1.getText().toString())){
 					c1.setChecked(true);
 				}
+				else{
+					c1.setChecked(false);
+				}
 			}
 			
 			if(t2.getText().toString() != null){
-				if(t1.getText().toString().length() == 10 && t1.getText().toString().matches("[0-9]+")){
-					c1.setChecked(true);
+				if(t2.getText().toString().length() == 10 && t2.getText().toString().matches("[0-9]+")){
+					c2.setChecked(true);
+				}
+				else{
+					c2.setChecked(false);
 				}
 			}
 			
