@@ -94,6 +94,43 @@ public class PracticalTest01MainActivity extends Activity {
 		t1.addTextChangedListener(textL);
 		t2.addTextChangedListener(textL);
     }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+      super.onSaveInstanceState(savedInstanceState);
+      
+      
+      t1 = (EditText) findViewById(R.id.text1);
+      t2 = (EditText) findViewById(R.id.text2);
+      c1 = (CheckBox) findViewById(R.id.check1);
+      c2 = (CheckBox) findViewById(R.id.check2);
+
+      
+      savedInstanceState.putString("textul1", t1.getText().toString());
+      savedInstanceState.putString("textul2", t2.getText().toString());
+      savedInstanceState.putBoolean("check1", c1.isChecked());
+      savedInstanceState.putBoolean("check2", c2.isChecked());
+      
+    }
+    
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+      super.onRestoreInstanceState(savedInstanceState);
+    
+      
+      t1 = (EditText) findViewById(R.id.text1);
+      t2 = (EditText) findViewById(R.id.text2);
+      c1 = (CheckBox) findViewById(R.id.check1);
+      c2 = (CheckBox) findViewById(R.id.check2);
+
+      
+      t1.setText(savedInstanceState.getString("textul1"));
+      t2.setText(savedInstanceState.getString("textul2"));
+      c1.setActivated(savedInstanceState.getBoolean("check1"));
+      c2.setActivated(savedInstanceState.getBoolean("check2"));
+    }
+    
+    
 
 
     @Override
